@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class FollowMouse : MonoBehaviour
 {
+    public GameObject screwdriver;
     public bool isFollow = false;
+    public bool isShowScrew = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,16 +16,35 @@ public class FollowMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isFollow == true)
+        if (isFollow)
         {
-            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 60));
+            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 60));
+            gameObject.transform.position = pos;
+            if (Mathf.Abs(pos.x - 23) < 10 && Mathf.Abs(pos.y + 34) < 10)
+            {
+                screwdriver.SetActive(true);
+                isShowScrew = true;
+            }
+            if (isShowScrew)
+            {
+                StartCoroutine(hide());
+                float step = 50 * Time.deltaTime;
+                screwdriver.transform.localPosition = Vector3.MoveTowards(screwdriver.transform.localPosition, new Vector3(-278, 347, 50), step);
+            }
+            if (Mathf.Abs(pos.x - 23) < 10 && Mathf.Abs(pos.y + 34) < 10)
+            {
+                screwdriver.SetActive(true);
+                isShowScrew = true;
+            }
         }
-
     }
     public void follow()
     {
         isFollow = true;
-
+    }
+    IEnumerator hide()
+    {
+        yield return new WaitForSeconds(1.25f);
+        screwdriver.SetActive(false);
     }
 }
