@@ -7,6 +7,7 @@ public class FollowMouse : MonoBehaviour
     public GameObject screwdriver;
     public bool isFollow = false;
     public bool isShowScrew = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,11 +32,6 @@ public class FollowMouse : MonoBehaviour
                 float step = 50 * Time.deltaTime;
                 screwdriver.transform.localPosition = Vector3.MoveTowards(screwdriver.transform.localPosition, new Vector3(-278, 347, 50), step);
             }
-            if (Mathf.Abs(pos.x - 23) < 10 && Mathf.Abs(pos.y + 34) < 10)
-            {
-                screwdriver.SetActive(true);
-                isShowScrew = true;
-            }
         }
     }
     public void follow()
@@ -44,7 +40,7 @@ public class FollowMouse : MonoBehaviour
     }
     IEnumerator hide()
     {
-        yield return new WaitForSeconds(1.25f);
+        yield return new WaitForSeconds(1.2f);
         screwdriver.SetActive(false);
     }
 }
