@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class HoverDetector : MonoBehaviour
 {
+    public int index;
+
     [SerializeField]
     private Image hint;
     [SerializeField]
@@ -16,8 +18,8 @@ public class HoverDetector : MonoBehaviour
 
     private float lightDuration = 1.0f;
     private Sequence sequence;
-    private Color startColor = new Color(1, 1, 1, 1);
-    private Color endColor = new Color(1, 1, 1, 0);
+    private Color startColor = new Color(1, 0, 0, 1);
+    private Color endColor = new Color(1, 0, 0, 0);
 
     public void Light()
     {
@@ -43,6 +45,7 @@ public class HoverDetector : MonoBehaviour
     {
         if (!miniGameManager.show)
         {
+            miniGameManager.Choose(index);
             icon.DOColor(startColor, lightDuration);
             sequence.Kill(true);
             hint.color = endColor;
