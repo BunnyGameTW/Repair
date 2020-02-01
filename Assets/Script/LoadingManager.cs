@@ -19,10 +19,20 @@ public class LoadingManager : MonoBehaviour
     [SerializeField]
     private Image light;
 
+    private bool changeScene;
     private float lightDuration = 1.0f;
     private Vector3 imagePos;
     Sequence sequence;
     Sequence lightSequence;
+
+    public void ChangeScene()
+    {
+        if (!changeScene)
+        {
+            changeScene = true;
+            GameManager.ChangeScene(1);
+        }
+    }
 
     private void Start()
     {
@@ -63,5 +73,10 @@ public class LoadingManager : MonoBehaviour
         Vector3 lightPos = new Vector3(-470 + scrollbar.size * 1103, -429, 0);
         image.rectTransform.localPosition = pos;
         light.transform.localPosition = lightPos;
+
+        if (scrollbar.size == 1)
+        {
+            ChangeScene();
+        }
     }
 }
