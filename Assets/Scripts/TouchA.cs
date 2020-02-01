@@ -16,27 +16,24 @@ public class TouchA : MonoBehaviour
     {
         jointPosition =  GetComponent<CharacterJoint>().connectedAnchor;
         originPosition = transform.position;
-        //TODO
         if(StartGameManager.Singleton.GetHasLetter("a")){
-            isFix = true;
-            if(StartGameManager.Singleton.GetHasFixLetter("a")){
-                
-            }
-            //TODO 把LOGO A正常位置
-
+            fixLogo();
+            StartGameManager.Singleton.SpawnLetter("a", originPosition);
         }
     }
 
+    void fixLogo(){
+        GetComponent<Rigidbody>().isKinematic = true;
+        isFix = true;
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        transform.position = originPosition;
+        originPosition.z += -1.0f;
+    }
     // Update is called once per frame
     void Update()
     {
         if(Vector3.Distance(transform.position, originPosition) < checkDistance && isDrag && !isFix){
-            GetComponent<Rigidbody>().isKinematic = true;
-            isFix = true;
-            print("spawn A");
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
-            transform.position = originPosition;
-            originPosition.z += -1.0f;
+            fixLogo();
             StartGameManager.Singleton.SetHasLetter("a");
             StartGameManager.Singleton.SpawnLetter("a", originPosition);
         }

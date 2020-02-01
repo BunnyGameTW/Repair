@@ -125,3 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   checkDistance: 0.2
+  sprites:
+  - {fileID: 21300000, guid: b872058b0006be14a854cbd8a4441a49, type: 3}
+  - {fileID: 21300000, guid: eeb409e03c8659f49987bfa336d0828d, type: 3}
+  - {fileID: 21300000, guid: 64064884e86b9eb4994830c74c285ac8, type: 3}

@@ -5,21 +5,14 @@ using UnityEngine;
 public class StartGameManager : MonoBehaviour
 {
     private static StartGameManager s_Instance;
-    int letterNumber;
-    bool canStartGame;
-    int TOTAL_LETTER = 5;
     public Transform letterObject;
     public Transform [] letterPosition;
     public GameObject ObjectA;
-
-    //TODO 紀錄現在的狀態 那些有得到 那些沒得到
-    //TODO 是否有螺絲起子
-    //TODO 是否修復標題
-    //獲得字母狀態[S,T,A,R,T]
-    //TODO 是否有
+    public GameObject screwObject;
     bool [] hasLetter = new bool [5];
     bool [] hasFixLetter = new bool [5];
     private static StartGameManager singleton = null;
+    public Sprite tSprite;
    
    public static StartGameManager Singleton
    {
@@ -38,7 +31,7 @@ public class StartGameManager : MonoBehaviour
    {
       if (singleton != null)
       {
-         Debug.LogErrorFormat(this.gameObject, "Multiple instances of {0} is not allow", GetType().Name);
+        //  Debug.LogErrorFormat(this.gameObject, "Multiple instances of {0} is not allow", GetType().Name);
          return;
       }
       
@@ -49,8 +42,6 @@ public class StartGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        letterNumber = 0;
-        canStartGame = false;
     }
 
     // Update is called once per frame
@@ -58,20 +49,31 @@ public class StartGameManager : MonoBehaviour
     {
         
     }
-    public void GetButtonLetter(){
-        letterNumber++;
-        if(letterNumber == TOTAL_LETTER){
-            canStartGame = true;//TODO 把按鈕設定成可以按
-        }
-    }
+
     public void SpawnLetter(string str, Vector3 pos){
+        int index = 0;
         switch (str)
         {
+            case "s":
+                index = 0;
+                break;
             case "a":
-                GameObject letterA = Instantiate(ObjectA, pos, new Quaternion(), letterObject);
-                letterA.GetComponent<StartButtonLetter>().target = letterPosition[2];
-            break;
+                index = 2;
+                break;
+             case "r":
+                index = 3;
+                break;
         }
+
+        if(str != "t"){
+            GameObject letterA = Instantiate(ObjectA, pos, new Quaternion(), letterObject);
+            letterA.GetComponent<StartButtonLetter>().target = letterPosition[index];
+            letterA.GetComponent<StartButtonLetter>().SetLetter(str);
+        }
+        else{
+
+        }
+
     }
 
     //設定得到哪個文字
@@ -132,6 +134,7 @@ public class StartGameManager : MonoBehaviour
                 Debug.Log("ERROR: 要傳入得到哪個字母 s,t,a,r");
                 break;
         }
+        checkPassGame();
     }
     public bool GetHasFixLetter(string letter){
         switch (letter)
@@ -153,20 +156,59 @@ public class StartGameManager : MonoBehaviour
 
 
     public void CheckMainGame(){
-        //TODO 檢查以獲得的文字
-        // if(hasLetter[0]){
-        //     if(hasFixLetter[0]){
-
-        //     }else{
-
-        //     }
-        // }
+        print("CheckMainGame");
+    
+        //重新尋找場景中的物件
+        letterObject = GameObject.Find("startButtonObject").transform;
+        letterPosition = new Transform[5];
+        letterPosition[0] = GameObject.Find("letterSPosition").transform;
+        letterPosition[1] = GameObject.Find("firstTSprite").transform;
+        letterPosition[2] = GameObject.Find("letterAPosition").transform;
+        letterPosition[3] = GameObject.Find("letterRPosition").transform;
+        letterPosition[4] = GameObject.Find("secondTSprite").transform;
 
         for(int i = 0; i < 5; i++){
             print("hasLetter[" + i + "]: " + hasLetter[i]);
             print("hasFixLetter[" + i + "]: " + hasFixLetter[i]);
         }
-        //TODO 檢查已修復的文字
+
+
+        checkLetters();
+        checkPassGame();
+
     }
-  
+    void checkLetters(){
+         if(GetHasLetter("t")){
+            if(GetHasFixLetter("t")){
+                GameObject.Find("firstTSprite").GetComponent<SpriteRenderer>().sprite = tSprite;
+                GameObject.Find("secondTSprite").GetComponent<SpriteRenderer>().sprite = tSprite;
+
+            }
+            else{
+                Instantiate(screwObject);//TODO 調整位置
+            }
+        }
+
+        if(GetHasLetter("s")){
+            SpawnLetter("s", GameObject.Find("letterSOriginPosition").transform.position);
+        }
+
+        if(GetHasLetter("r")){
+            SpawnLetter("r", GameObject.Find("letterROriginPosition").transform.position);
+        }       
+    }
+    void checkPassGame(){
+         bool isPass = true;
+        for(int i = 0; i < 5; i++){
+            if(!hasFixLetter[i]) isPass = false;
+        }
+        if(isPass){
+            GameObject.Find("startButtonUI").GetComponent<UnityEngine.UI.Button>().enabled = true;
+            GameObject.Find("startButtonUI").GetComponent<UnityEngine.UI.Image>().enabled = true;
+
+            GameObject.Find("startButton").SetActive(false);
+            GameObject.Find("startButtonObject").SetActive(false);
+
+        }
+    }
 }
