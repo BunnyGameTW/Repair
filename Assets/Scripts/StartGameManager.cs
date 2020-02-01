@@ -12,6 +12,13 @@ public class StartGameManager : MonoBehaviour
     public Transform [] letterPosition;
     public GameObject ObjectA;
 
+    //TODO 紀錄現在的狀態 那些有得到 那些沒得到
+    //TODO 是否有螺絲起子
+    //TODO 是否修復標題
+    //獲得字母狀態[S,T,A,R,T]
+    //TODO 是否有
+    bool [] hasLetter = new bool [5];
+    bool [] hasFixLetter = new bool [5];
     private static StartGameManager singleton = null;
    
    public static StartGameManager Singleton
@@ -66,4 +73,100 @@ public class StartGameManager : MonoBehaviour
             break;
         }
     }
+
+    //設定得到哪個文字
+    public void SetHasLetter(string letter){
+        switch (letter)
+        {
+            case "s":
+                hasLetter[0] = true;
+                break;
+            case "t":
+                hasLetter[1] = true;
+                hasLetter[4] = true;
+                break;
+            case "a":
+                hasLetter[2] = true;
+                break;
+            case "r":
+                hasLetter[3] = true;
+                break;
+            default:
+                Debug.Log("ERROR: 要傳入得到哪個字母 s,t,a,r");
+                break;
+        }
+    }
+    public bool GetHasLetter(string letter){
+        switch (letter)
+        {
+            case "s":
+                return hasLetter[0];
+            case "t":
+                return hasLetter[1];
+            case "a":
+                return hasLetter[2];
+            case "r":
+                return hasLetter[3];
+            default:
+                Debug.Log("ERROR: 要傳入得到哪個字母的狀態 s,t,a,r");
+                return false;
+        }
+    }
+
+    public void SetHasFixLetter(string letter){
+        switch (letter){
+            case "s":
+                hasFixLetter[0] = true;
+                break;
+            case "t":
+                hasFixLetter[1] = true;
+                hasFixLetter[4] = true;
+                break;
+            case "a":
+                hasFixLetter[2] = true;
+                break;
+            case "r":
+                hasFixLetter[3] = true;
+                break;
+            default:
+                Debug.Log("ERROR: 要傳入得到哪個字母 s,t,a,r");
+                break;
+        }
+    }
+    public bool GetHasFixLetter(string letter){
+        switch (letter)
+        {
+            case "s":
+                return hasFixLetter[0];
+            case "t":
+                return hasFixLetter[1];
+            case "a":
+                return hasFixLetter[2];
+            case "r":
+                return hasFixLetter[3];
+            default:
+                Debug.Log("ERROR: 要傳入得到哪個字母的狀態 s,t,a,r");
+                return false;
+        }
+    }
+
+
+
+    public void CheckMainGame(){
+        //TODO 檢查以獲得的文字
+        // if(hasLetter[0]){
+        //     if(hasFixLetter[0]){
+
+        //     }else{
+
+        //     }
+        // }
+
+        for(int i = 0; i < 5; i++){
+            print("hasLetter[" + i + "]: " + hasLetter[i]);
+            print("hasFixLetter[" + i + "]: " + hasFixLetter[i]);
+        }
+        //TODO 檢查已修復的文字
+    }
+  
 }

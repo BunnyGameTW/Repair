@@ -16,7 +16,7 @@ public class StartButtonLetter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Vector3.Distance(transform.position, target.position));
+        // Debug.Log(Vector3.Distance(transform.position, target.position));
         if(Vector3.Distance(transform.position, target.position) < checkDistance && !isFix) {
             StartGameManager.Singleton.GetButtonLetter();
             isFix = true;

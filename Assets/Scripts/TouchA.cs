@@ -16,6 +16,15 @@ public class TouchA : MonoBehaviour
     {
         jointPosition =  GetComponent<CharacterJoint>().connectedAnchor;
         originPosition = transform.position;
+        //TODO
+        if(StartGameManager.Singleton.GetHasLetter("a")){
+            isFix = true;
+            if(StartGameManager.Singleton.GetHasFixLetter("a")){
+                
+            }
+            //TODO 把LOGO A正常位置
+
+        }
     }
 
     // Update is called once per frame
@@ -28,6 +37,7 @@ public class TouchA : MonoBehaviour
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
             transform.position = originPosition;
             originPosition.z += -1.0f;
+            StartGameManager.Singleton.SetHasLetter("a");
             StartGameManager.Singleton.SpawnLetter("a", originPosition);
         }
     }
@@ -42,4 +52,5 @@ public class TouchA : MonoBehaviour
     private void OnMouseUp() {
         isDrag = false;
     }
+
 }
