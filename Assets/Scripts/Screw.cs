@@ -13,6 +13,9 @@ public class Screw : MonoBehaviour
     public Sprite tSprite;
     int counter;
     bool [] isChange;
+    AudioSource audioSource;
+    [SerializeField]
+    AudioClip screw;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,7 @@ public class Screw : MonoBehaviour
         firstT = GameObject.Find("firstTSprite");
         secondT = GameObject.Find("secondTSprite");
         animator = GetComponent<Animator>();
+        audioSource = Camera.main.GetComponent<AudioSource>();
         counter = 0;
         isChange = new bool [2];
     }
@@ -36,6 +40,7 @@ public class Screw : MonoBehaviour
             GetComponent<Rigidbody>().isKinematic = true;
             transform.position = new Vector3(tObject.transform.position.x, tObject.transform.position.y, transform.position.z);
             animator.SetBool("isRotate", true);
+            StartCoroutine(DelayPlayMusic(0.7f));
         }
         if(Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(secondT.transform.position.x, secondT.transform.position.y)) < checkDistance && isDrag && !isChange[1]){
             canUse = false;
@@ -46,6 +51,7 @@ public class Screw : MonoBehaviour
             transform.position = new Vector3(tObject.transform.position.x, tObject.transform.position.y, transform.position.z);
 
             animator.SetBool("isRotate", true);
+            StartCoroutine(DelayPlayMusic(0.7f));
         }
         
     }
@@ -73,5 +79,11 @@ public class Screw : MonoBehaviour
     }
     private void OnMouseUp() {
         isDrag = false;
+    }
+    private IEnumerator DelayPlayMusic(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        audioSource.PlayOneShot(screw);
+
     }
 }
