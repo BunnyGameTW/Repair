@@ -5,8 +5,11 @@ using UnityEngine;
 public class FollowMouse : MonoBehaviour
 {
     public GameObject screwdriver;
+    public GameObject aa;
     public bool isFollow = false;
     public bool isShowScrew = false;
+    public bool isGetKeyS = StartGameManager.Singleton.GetHasFixLetter("s");
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +24,11 @@ public class FollowMouse : MonoBehaviour
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 60));
             gameObject.transform.position = pos;
-            if (Mathf.Abs(pos.x - 23) < 10 && Mathf.Abs(pos.y + 34) < 10)
+            if (Mathf.Abs(pos.x - 23) < 10 && Mathf.Abs(pos.y + 34) < 10 && isGetKeyS == false)
             {
                 screwdriver.SetActive(true);
                 isShowScrew = true;
+                StartGameManager.Singleton.SetHasFixLetter("s");
             }
             if (isShowScrew)
             {

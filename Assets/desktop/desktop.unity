@@ -141,8 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65555416989988468bbbc7160aef981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashlight: {fileID: 5548791897847150225, guid: 7cad4a4c3dfa49b44989aac54b3d4552,
-    type: 3}
+  flashlight: {fileID: 1487909617}
   isFlashLightExist: 0
 --- !u!4 &56075524
 Transform:
@@ -206,10 +205,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -467,8 +466,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screwdriver: {fileID: 2114860961}
+  aa: {fileID: 1487909617}
   isFollow: 0
   isShowScrew: 0
+  isGetKeyS: 0
 --- !u!1 &554916887
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +548,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 554916890}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1487909622}
+        m_MethodName: switchMiniGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &554916890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,8 +668,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602429681}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 62.6}
-  m_LocalScale: {x: 570.184, y: 72.17511, z: 7.4239407}
+  m_LocalPosition: {x: 0, y: 1.8, z: 62.6}
+  m_LocalScale: {x: 570.184, y: 80, z: 7.4239407}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -735,7 +747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971256862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 48.8, y: -1.3, z: 50.1}
+  m_LocalPosition: {x: 48.8, y: -1.3, z: 59}
   m_LocalScale: {x: 25, y: 24, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1034,7 +1046,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1362365010}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1487909622}
+        m_MethodName: switchLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1362365010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,8 +1105,9 @@ GameObject:
   - component: {fileID: 1487909620}
   - component: {fileID: 1487909619}
   - component: {fileID: 1487909618}
+  - component: {fileID: 1487909622}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Desktop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1162,6 +1186,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1487909622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487909617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5619340b5c034de4eb710422197f4426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MiniGameBtn: {fileID: 554916887}
+  isGetKeyS: 0
 --- !u!1 &1569764835
 GameObject:
   m_ObjectHideFlags: 0
