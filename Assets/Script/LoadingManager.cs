@@ -10,8 +10,10 @@ public class LoadingManager : MonoBehaviour
     private Scrollbar scrollbar;
     [SerializeField]
     private Image image;
+    //[SerializeField]
+    //private Text text;
     [SerializeField]
-    private Text text;
+    private GameObject text;
     [SerializeField]
     private Text loadingText;
     [SerializeField]
@@ -38,7 +40,13 @@ public class LoadingManager : MonoBehaviour
     {
         imagePos = image.transform.localPosition;
         scrollbar.interactable = false;
-        text.transform.DOLocalMoveY(650, 10).SetEase(Ease.Linear);
+        text.transform.DOLocalMove(new Vector3(-9.9f, 25, 25), 50).SetEase(Ease.Linear);
+
+        StartCoroutine(Play());
+    }
+    private IEnumerator Play()
+    {
+        yield return new WaitForSeconds(2.0f);
 
         // 0%: -483, 87%: 476.61, 100%: 620
         image.transform.DOLocalMoveX(476.61f, 10).SetEase(Ease.Linear);
@@ -63,7 +71,6 @@ public class LoadingManager : MonoBehaviour
             lightSequence.AppendInterval(lightDuration);
             lightSequence.SetLoops(-1);
         });
-
     }
     private void Update()
     {

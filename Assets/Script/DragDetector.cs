@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,7 +9,8 @@ public class DragDetector : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 {
     public int scale = 100;
 
-    public bool IsDragable;
+    [NonSerialized]
+    public bool IsDragable = false;
 
     [SerializeField]
     private Scrollbar scrollbar;
@@ -23,6 +25,7 @@ public class DragDetector : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
         if (IsDragable)    // Only do if IsDraggable == true
         {
+            Debug.Log(IsDragable);
             mouseX = Input.mousePosition.x;
             scrollbarSize = scrollbar.size;
             //screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -37,6 +40,7 @@ public class DragDetector : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
         if (IsDragable)    // Only do if IsDraggable == true
         {
+            Debug.Log(IsDragable);
             float offset = (Input.mousePosition.x - mouseX) / scale;
             scrollbar.size = scrollbarSize + offset;
             //Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z); // hardcode the y and z for your use
