@@ -20,21 +20,18 @@ public class LoadingManager : MonoBehaviour
     private DragDetector dragDetector;
     [SerializeField]
     private Image light;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip refill;
 
     private bool changeScene;
     private float lightDuration = 1.0f;
     private Vector3 imagePos;
     Sequence sequence;
     Sequence lightSequence;
+    Sequence shakeSequence;
 
-    public void ChangeScene()
-    {
-        if (!changeScene)
-        {
-            changeScene = true;
-            GameManager.ChangeScene(1);
-        }
-    }
 
     private void Start()
     {
@@ -52,16 +49,25 @@ public class LoadingManager : MonoBehaviour
         image.transform.DOLocalMoveX(476.61f, 10).SetEase(Ease.Linear);
         sequence = DOTween.Sequence();
 
-        sequence.Append(DOTween.To(() => scrollbar.size, x => scrollbar.size = x, 0.87f, 10).SetEase(Ease.Linear)).OnComplete(() =>
-        {
-            dragDetector.IsDragable = true;
-        });
+        sequence.Append(DOTween.To(() => scrollbar.size, x => scrollbar.size = x, 0.87f, 10).SetEase(Ease.Linear));
+        sequence.AppendInterval(1);
         sequence.AppendCallback(() =>
         {
+            shakeSequence = DOTween.Sequence();
+            shakeSequence.AppendInterval(0.5f);
+            shakeSequence.Append(DOTween.To(() => scrollbar.size, x => scrollbar.size = x, 0.8f, 2));
+            shakeSequence.Append(DOTween.To(() => scrollbar.size, x => scrollbar.size = x, 0.87f, 0.1f));
+            shakeSequence.SetLoops(-1);
+            dragDetector.shakeDelegate = StopShakeAnim;
+        });
+        sequence.AppendInterval(5);
+        sequence.AppendCallback(() =>
+        {
+            dragDetector.IsDragable = true;
             Color startColor = new Color(1, 1, 1, 1);
             Color endColor = new Color(1, 1, 1, 0);
 
-            Sequence lightSequence = DOTween.Sequence();
+            lightSequence = DOTween.Sequence();
             lightSequence.AppendCallback(() =>
             {
                 light.color = endColor;
@@ -71,6 +77,7 @@ public class LoadingManager : MonoBehaviour
             lightSequence.AppendInterval(lightDuration);
             lightSequence.SetLoops(-1);
         });
+
     }
     private void Update()
     {
@@ -83,7 +90,26 @@ public class LoadingManager : MonoBehaviour
 
         if (scrollbar.size == 1)
         {
-            ChangeScene();
+            StartCoroutine(ChangeScene());
         }
+    }
+    private IEnumerator ChangeScene()
+    {
+        if (!changeScene)
+        {
+            changeScene = true;
+            audioSource.PlayOneShot(refill);
+            yield return new WaitForSeconds(0.5f);
+            GameManager.ChangeScene(1);
+        }
+        else
+        {
+            yield return null;
+        }
+    }
+
+    private void StopShakeAnim()
+    {
+        shakeSequence.Kill();
     }
 }

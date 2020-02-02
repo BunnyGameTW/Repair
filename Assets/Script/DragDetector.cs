@@ -11,6 +11,8 @@ public class DragDetector : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     [NonSerialized]
     public bool IsDragable = false;
+    [NonSerialized]
+    public Action shakeDelegate = null;
 
     [SerializeField]
     private Scrollbar scrollbar;
@@ -25,6 +27,10 @@ public class DragDetector : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
         if (IsDragable)    // Only do if IsDraggable == true
         {
+            if (shakeDelegate != null)
+            {
+                shakeDelegate.Invoke();
+            }
             Debug.Log(IsDragable);
             mouseX = Input.mousePosition.x;
             scrollbarSize = scrollbar.size;
