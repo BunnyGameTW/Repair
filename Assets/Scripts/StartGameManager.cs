@@ -135,7 +135,7 @@ public class StartGameManager : MonoBehaviour
                 Debug.Log("ERROR: 要傳入得到哪個字母 s,t,a,r");
                 break;
         }
-        checkSpawnLetterR();
+        // checkSpawnLetterR();
         checkPassGame();
     }
     public bool GetHasFixLetter(string letter){
