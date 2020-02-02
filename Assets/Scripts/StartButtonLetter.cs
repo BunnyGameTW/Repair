@@ -14,7 +14,6 @@ public class StartButtonLetter : MonoBehaviour
     {
         checkDistance = 0.5f;
         if(StartGameManager.Singleton.GetHasFixLetter(letter)){
-            //移動到位置上
             fixLetter();
         }
     }

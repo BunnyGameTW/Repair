@@ -13,6 +13,7 @@ public class StartGameManager : MonoBehaviour
     bool [] hasFixLetter = new bool [5];
     private static StartGameManager singleton = null;
     public Sprite tSprite;
+    public string lastScene;
    
    public static StartGameManager Singleton
    {
@@ -70,7 +71,7 @@ public class StartGameManager : MonoBehaviour
             letterA.GetComponent<StartButtonLetter>().target = letterPosition[index];
             letterA.GetComponent<StartButtonLetter>().SetLetter(str);
         }
-        else{
+        else{//TODO
 
         }
 
@@ -134,6 +135,7 @@ public class StartGameManager : MonoBehaviour
                 Debug.Log("ERROR: 要傳入得到哪個字母 s,t,a,r");
                 break;
         }
+        checkSpawnLetterR();
         checkPassGame();
     }
     public bool GetHasFixLetter(string letter){
@@ -167,14 +169,24 @@ public class StartGameManager : MonoBehaviour
         letterPosition[3] = GameObject.Find("letterRPosition").transform;
         letterPosition[4] = GameObject.Find("secondTSprite").transform;
 
-        for(int i = 0; i < 5; i++){
-            print("hasLetter[" + i + "]: " + hasLetter[i]);
-            print("hasFixLetter[" + i + "]: " + hasFixLetter[i]);
-        }
+        // for(int i = 0; i < 5; i++){
+        //     print("hasLetter[" + i + "]: " + hasLetter[i]);
+        //     print("hasFixLetter[" + i + "]: " + hasFixLetter[i]);
+        // }
 
 
         checkLetters();
         checkPassGame();
+
+        if(lastScene == "desktop"){
+            GameObject obj = GameObject.Find("fadeObject");
+            obj.GetComponent<Animator>().SetBool("isFadeIn", true); 
+        }
+        else
+        {    
+            GameObject.Find("fadeObject").SetActive(false);
+        }
+
 
     }
     void checkLetters(){
@@ -192,10 +204,16 @@ public class StartGameManager : MonoBehaviour
         if(GetHasLetter("s")){
             SpawnLetter("s", GameObject.Find("letterSOriginPosition").transform.position);
         }
-
+        checkSpawnLetterR();
+    }
+    void checkSpawnLetterR(){
+        if(GetHasFixLetter("s") && GetHasFixLetter("t") && GetHasFixLetter("a")){
+            SetHasLetter("r");
+        }  
+        
         if(GetHasLetter("r")){
             SpawnLetter("r", GameObject.Find("letterROriginPosition").transform.position);
-        }       
+        }   
     }
     void checkPassGame(){
          bool isPass = true;
