@@ -207,9 +207,9 @@ public class StartGameManager : MonoBehaviour
         checkSpawnLetterR();
     }
     void checkSpawnLetterR(){
-        if(GetHasFixLetter("s") && GetHasFixLetter("t") && GetHasFixLetter("a")){
-            SetHasLetter("r");
-        }  
+        // if(GetHasFixLetter("s") && GetHasFixLetter("t") && GetHasFixLetter("a")){
+        //     SetHasLetter("r");
+        // }  
         
         if(GetHasLetter("r")){
             SpawnLetter("r", GameObject.Find("letterROriginPosition").transform.position);
