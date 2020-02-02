@@ -26,16 +26,20 @@ public class FollowMouse : MonoBehaviour
             gameObject.transform.position = pos;
             if (Mathf.Abs(pos.x + 43) < 10 && Mathf.Abs(pos.y + 34) < 10 && isGetKeyT == false)
             {
+                print("move");
                 screwdriver.SetActive(true);
                 isShowScrew = true;
+                isGetKeyT = true;
+                screwdriver.GetComponent<Animator>().SetBool("isMove", true);
                 StartGameManager.Singleton.SetHasLetter("t");
             }
-            if (isShowScrew)
-            {
-                StartCoroutine(hide());
-                float step = 50 * Time.deltaTime;
-                screwdriver.transform.localPosition = Vector3.MoveTowards(screwdriver.transform.localPosition, new Vector3(198, 441, 50), step);
-            }
+            //if (isShowScrew)
+            //{
+            //    StartCoroutine(hide());
+
+            //    //float step = 50 * Time.deltaTime;
+            //    //screwdriver.transform.localPosition = Vector3.MoveTowards(screwdriver.transform.localPosition, new Vector3(198, 441, 50), step);
+            //}
         }
     }
     public void follow()
