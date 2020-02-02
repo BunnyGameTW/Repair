@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Staff.unity
     guid: 8de91e717486245409eb0a22898d8fdb
+  - enabled: 1
+    path: Assets/PornHub/PornHub.unity
+    guid: 661f2fe35c695f0448dda1550ec732d4
   m_configObjects: {}

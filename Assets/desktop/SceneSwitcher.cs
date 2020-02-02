@@ -5,16 +5,20 @@ using UnityEngine;
 public class SceneSwitcher : MonoBehaviour
 {
     public GameObject MiniGameBtn;
-    public bool  isGetKeyS = StartGameManager.Singleton.GetHasLetter("s");
+    public GameObject PornBtn;
     void Start()
     {
 
     }
     void Update()
     {
-        if (isGetKeyS == true)
+        if (StartGameManager.Singleton.GetHasLetter("s") == true)
         {
             MiniGameBtn.SetActive(false);
+        }
+        if (StartGameManager.Singleton.GetHasLetter("r"))
+        {
+            PornBtn.SetActive(false);
         }
     }
     public void switchLobby()
@@ -26,5 +30,8 @@ public class SceneSwitcher : MonoBehaviour
     {
         Application.LoadLevel("MiniGame");
     }
-
+    public void switchPornHub()
+    {
+        Application.LoadLevel("PornHub");
+    }
 }

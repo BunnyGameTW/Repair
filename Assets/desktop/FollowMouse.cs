@@ -8,13 +8,12 @@ public class FollowMouse : MonoBehaviour
     public GameObject aa;
     public bool isFollow = false;
     public bool isShowScrew = false;
-    public bool isGetKeyT = StartGameManager.Singleton.GetHasLetter("t");
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,12 +23,10 @@ public class FollowMouse : MonoBehaviour
         {
             Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 60));
             gameObject.transform.position = pos;
-            if (Mathf.Abs(pos.x + 43) < 10 && Mathf.Abs(pos.y + 34) < 10 && isGetKeyT == false)
+            if (Mathf.Abs(pos.x + 43) < 10 && Mathf.Abs(pos.y + 34) < 10 && StartGameManager.Singleton.GetHasLetter("t") == false)
             {
-                print("move");
                 screwdriver.SetActive(true);
                 isShowScrew = true;
-                isGetKeyT = true;
                 screwdriver.GetComponent<Animator>().SetBool("isMove", true);
                 StartGameManager.Singleton.SetHasLetter("t");
             }
