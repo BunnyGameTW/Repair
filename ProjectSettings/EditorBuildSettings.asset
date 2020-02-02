@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/MainSceneRES/mainscene.unity
     guid: 72a3c37a4d68b594e87440421e487eec
   - enabled: 1
-    path: Assets/destop/desktop.unity
+    path: Assets/desktop/desktop.unity
     guid: 4e77402f844a3c64b94cc4be38387ee2
   - enabled: 1
     path: Assets/Scenes/MiniGame.unity

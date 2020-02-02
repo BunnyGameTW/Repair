@@ -53,6 +53,7 @@ public class MiniGameManager : MonoBehaviour
                 lightSequence.SetLoops(-1);
             });
             audioSource.PlayOneShot(win);
+            StartGameManager.Singleton.SetHasLetter("s");
         }
         else if (index == 5)
         {
