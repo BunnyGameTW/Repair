@@ -5,7 +5,7 @@ using UnityEngine;
 public class SceneSwitcher : MonoBehaviour
 {
     public GameObject MiniGameBtn;
-    public bool  isGetKeyS = StartGameManager.Singleton.GetHasFixLetter("s");
+    public bool  isGetKeyS = StartGameManager.Singleton.GetHasLetter("s");
     void Start()
     {
 
