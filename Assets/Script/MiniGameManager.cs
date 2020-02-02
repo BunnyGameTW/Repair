@@ -31,6 +31,7 @@ public class MiniGameManager : MonoBehaviour
     private Vector3 imagePos;
     private Color startColor = new Color(1, 1, 1, 1);
     private Color endColor = new Color(1, 1, 1, 0);
+    private ChangeScene changeScene;
 
     Sequence sequence;
     Sequence lightSequence;
@@ -54,6 +55,11 @@ public class MiniGameManager : MonoBehaviour
             });
             audioSource.PlayOneShot(win);
             StartGameManager.Singleton.SetHasLetter("s");
+            chooseSequence.AppendInterval(2.0f);
+            chooseSequence.AppendCallback(() =>
+            {
+                changeScene.change("desktop");
+            });
         }
         else if (index == 5)
         {
@@ -64,20 +70,32 @@ public class MiniGameManager : MonoBehaviour
             chooseSequence.Append(icons[10].DOColor(startColor, lightDuration));
             chooseSequence.Append(suck.DOScale(Vector3.one * 0.6f, 0.5f));
             audioSource.PlayOneShot(lose);
+            chooseSequence.AppendInterval(2.0f);
+            chooseSequence.AppendCallback(() =>
+            {
+                changeScene.change("desktop");
+            });
         }
         else
         {
+            chooseSequence = DOTween.Sequence();
             // Lose
             chooseSequence.Append(turn.DOColor(endColor, lightDuration));
             chooseSequence.Join(playerIcon.DOColor(endColor, lightDuration));
             chooseSequence.Append(icons[11].DOColor(startColor, lightDuration));
             chooseSequence.Append(suck.DOScale(Vector3.one * 0.6f, 0.5f));
             audioSource.PlayOneShot(lose);
+            chooseSequence.AppendInterval(2.0f);
+            chooseSequence.AppendCallback(() =>
+            {
+                changeScene.change("desktop");
+            });
         }
     }
 
     private void Start()
     {
+        changeScene = GetComponent<ChangeScene>();
         show = true;
         for (int i = 0; i < icons.Count; i++)
         {
